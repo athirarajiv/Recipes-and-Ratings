@@ -58,9 +58,52 @@ My cleaned dataframe contains 83194 rows and 21 columns. I have omitted the "ste
 
 For the univariate analysis, I looked at the distribution of average recipe ratings. The plot below shows the distribution of average recipe ratings, and shows that most recipes have a high average rating, with a significant number of ratings clustering around the 4-5 range. This pattern may exist for many reasons: users may generally rate recipes positively, with fewer recipes receiving low ratings, or users are more motivated to leave positive reviews as compared to negative reviews. 
 
+
 <iframe
   src="assets/average_rating_distribution.html"
   width="800"
   height="600"
   frameborder="0"
 ></iframe>
+
+
+
+### Bivariate Analysis 
+
+The scatter plot below illustrates the relationship between preparation time (in minutes) and average rating for recipes. Darker colors indicate higher ratings, helping to visualize any potential correlation between the time invested in preparing a recipe and its perceived quality. From this plot, it seems that as the average rating decreases, the range of preparation times decreases as well. However, this is likely due to the fact that there are a significantly higher number of recipes with a 4 to 5 rating in the dataset, while there are less recipes present with ratings of 1, 2, and 3. I wanted to visualize this because I hypothesized that the longer a recipe took to make, the lower the average rating would be, as people may tend to have higher expectations for the outcome when a recipe requires more effort and time to prepare. 
+
+
+<iframe
+  src="assets/average_rating_vs_prep_time.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
+
+
+### Interesting Aggregates 
+
+This pivot table displays the average rating of recipes categorized by their calorie content. I defined several calorie bins to categorize the recipes based on their calorie content. The categories range from 0-100 calories to 1000+ calories. I then created a pivot table that calculates the mean average_rating for each calorie category. The pivot table is sorted in descending order of the average rating. I wanted to create this pivot table because I hoped it would help to understand if and/or how the calorie content of recipes might influence their ratings. By looking at the average ratings across different calorie categories, we can infer if there is a trend or preference among users for recipes with certain calorie levels. However, the pivot table shows that the average rating fluctuates only slightly across all the calorie categories.
+
+<iframe
+  src="assets/avg_rating_by_calories.html"
+  width="800"
+  height="400"
+  frameborder="0"
+></iframe>
+
+## Assessment of Missingness 
+
+### NMAR Analysis 
+
+### Missingness Dependency 
+
+## Hypothesis Testing 
+
+## Framing a Prediction Problem 
+
+## Baseline Model 
+
+## Final Model
+
+## Fairness Analysis 
