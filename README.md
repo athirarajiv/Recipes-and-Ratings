@@ -57,3 +57,10 @@ My cleaned dataframe contains 83194 rows and 21 columns. I have omitted the "ste
 ### Univariate Analysis 
 
 For the univariate analysis, I looked at the distribution of average recipe ratings. The plot below shows the distribution of average recipe ratings, and shows that most recipes have a high average rating, with a significant number of ratings clustering around the 4-5 range. This pattern may exist for many reasons: users may generally rate recipes positively, with fewer recipes receiving low ratings, or users are more motivated to leave positive reviews as compared to negative reviews. 
+
+<iframe
+  src="assets/average_rating_distribution.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
