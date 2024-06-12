@@ -119,12 +119,14 @@ Below are the empirical distributions of the permuted test statistics for minute
   frameborder="0"
 ></iframe>
 
+
 <iframe
   src="assets/perm_test_calories.html"
   width="800"
   height="600"
   frameborder="0"
 ></iframe>
+
 
 The empirical distribution of permuted test statistics for minutes shows that the observed test statistic (red line) falls well within the range of the permuted statistics, indicating no significant dependency between minutes and average_rating missingness. However, for calories, the observed test statistic falls towards the tail of the distribution, suggesting a potential dependency between calories and average_rating missingness.
 
@@ -151,6 +153,7 @@ The p-value of 0.0 indicates that the observed difference in average ratings is 
   height="600"
   frameborder="0"
 ></iframe>
+
 
 Conclusion:
 Given the p-value of 0.0, we reject the null hypothesis at the 0.05 significance level. This suggests that there is a statistically significant difference in average ratings between recipes with the "desserts" tag and those without. Specifically, recipes tagged as "desserts" tend to have lower average ratings.
