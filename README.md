@@ -106,12 +106,14 @@ Based on these results, we fail to reject the null hypothesis for all columns ex
 
 Below are the empirical distributions of the permuted test statistics for minutes and calories along with the observed statistics:
 
+
 <iframe
   src="assets/perm_test_minutes.html"
   width="800"
   height="600"
   frameborder="0"
 ></iframe>
+
 
 <iframe
   src="assets/perm_test_calories.html"
@@ -141,6 +143,7 @@ Observed Difference: 0.051
 p-value: 0.0
 
 The p-value of 0.0 indicates that the observed difference in average ratings is highly unlikely to have occurred by random chance alone.
+
 
 <iframe
   src="assets/perm_test_desserts.html"
