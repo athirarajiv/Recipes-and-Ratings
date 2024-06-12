@@ -134,12 +134,14 @@ Since I aim to explore the kinds of recipes that tend to have higher ratings, I 
 Null Hypothesis (H0): Recipes without the tag "desserts" have the same or lower average ratings compared to those with the tag.
 Alternative Hypothesis (H1): Recipes without the tag "desserts" have higher average ratings compared to those with the tag.
 Test Statistic: The difference in mean ratings between recipes without the "desserts" tag and those with it.
-We choose the standard significance level of 0.05.
+Significance Level: I chose the standard significance level of 0.05.
 P-value: I calculated this as the proportion of permuted differences that are greater than or equal to the observed difference (one-sided test).
 
 Results:
 Observed Difference: 0.051
+
 p-value: 0.0
+
 The p-value of 0.0 indicates that the observed difference in average ratings is highly unlikely to have occurred by random chance alone.
 
 
