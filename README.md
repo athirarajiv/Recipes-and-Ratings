@@ -1,4 +1,4 @@
-# Recipe Ratings Revealed: A Data-Driven Culinary Journey¶
+# Recipe Ratings Revealed: A Data-Driven Culinary Journey
 Author: Athira Rajiv
 
 ## Introduction
