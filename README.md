@@ -149,8 +149,51 @@ Given the p-value of 0.0, we reject the null hypothesis at the 0.05 significance
 
 
 ## Framing a Prediction Problem 
+I plan to predict the average ratings of recipes. This is a regression problem because the average rating is a continuous numerical value that can take on any value between 1 and 5. 
+The variable I am predicting is `average_rating`. I chose this because understanding what factors influence the rating of a recipe can provide valuable insights into user preferences and help in recommending or creating highly-rated recipes.I will use Mean Squared Error (MSE) and R² Score to evaluate my model. I chose MSE because it is a common metric for regression tasks that penalizes larger errors more heavily, providing a clear measure of the model's prediction accuracy. The R² Score is chosen to explain the proportion of the variance in the dependent variable that is predictable from the independent variables, giving a sense of how well the features explain the variability in ratings. To ensure that my model only uses information available at the time of prediction, I will exclude any features that would not be known prior to the rating being given.
 
 ## Baseline Model 
+
+My baseline model is designed to predict the `average_rating` of recipes based on the following features:
+
+1. **Quantitative Features:**
+   - `minutes`: The time it takes to prepare the recipe (continuous numeric variable).
+   - `n_ingredients`: The number of ingredients used in the recipe (continuous numeric variable).
+   - `calories`: The calorie content of the recipe (continuous numeric variable).
+
+### Preprocessing Steps
+
+1. **Handling Missing Values:**
+   - The dataset is first cleaned to drop any rows where `minutes`, `n_ingredients`, or `average_rating` have missing values.
+   
+2. **Scaling:**
+   - A `StandardScaler` is used to standardize the features by removing the mean and scaling to unit variance. This ensures that all features contribute equally to the model's predictions.
+
+3. **Model Pipeline:**
+   - The pipeline consists of a scaler (`StandardScaler`) and a regressor (`LinearRegression`). The pipeline first scales the input features and then applies the linear regression model.
+
+### Model Performance
+
+- **Mean Squared Error (MSE):** 0.41285401080918344
+- **R² Score:** 0.000713033521345996
+
+The Mean Squared Error (MSE) measures the average squared difference between the predicted and actual values, with lower values indicating better model performance. The R² score represents the proportion of variance in the dependent variable that is predictable from the independent variables, with values closer to 1 indicating a better fit.
+
+### Evaluation of Model Performance
+
+- The **MSE** value of approximately 0.41 indicates that there is a significant average error in the predictions. Given that the ratings are typically on a scale of 1 to 5, an error of this magnitude suggests that the model's predictions are not very accurate.
+- The **R² Score** of approximately 0.0007 indicates that the model explains very little of the variance in the `average_rating` variable. This suggests that the linear regression model, as currently configured, is not capturing the underlying patterns in the data effectively.
+
+### Conclusion
+
+Given the high MSE and low R² score, I believe the current model is not performing well. Several factors could contribute to this:
+- The relationship between the features and the target variable (`average_rating`) may not be linear, which means a linear regression model might not be appropriate.
+- There might be other important features not included in the model that could significantly improve predictions.
+- The dataset might have inherent noise or variability that makes it challenging to predict ratings accurately with a simple linear model.
+- Predicting the average rating may work better as a classification problem. Since the original ratings given by users are discrete, a classification model might better capture the underlying patterns in the data compared to a regression model that tries to predict continuous values.
+
+To improve the model, it might be beneficial to explore a multiclass classification problem. Additionally, incorporating more features and performing feature engineering to create more informative variables could also enhance model performance.
+
 
 ## Final Model
 
