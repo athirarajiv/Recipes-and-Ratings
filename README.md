@@ -4,9 +4,9 @@ Author: Athira Rajiv
 ## Introduction
 In this project, I explore a comprehensive dataset of recipes and their corresponding user interactions. The main question I aim to answer is: **"What types of recipes tend to have higher average ratings?"** Gaining insight into this question can provide valuable information into culinary trends and preferences, helping home cooks who are looking to try new recipes or chefs and food bloggers aiming to create content that resonates with their audiences. The insights gained from answering this question can even reach audiences who don't usually cook, encouraging them to experiment with new ingredients and cuisines, and enriching their cooking experience. 
 
-The dataset comprises two main files: `RECIPES` and `RATINGS`, containing only the recipes and reviews posted since 2008. The relevant columns from these datasets include:
+The dataset comprises two main files: `Recipes` and `Interactions`, containing the recipes and reviews posted since 2008. The relevant columns from these datasets include:
 
-## RECIPES
+## Recipes
 
 | Column          | Description                                                                                                                                  |
 |-----------------|----------------------------------------------------------------------------------------------------------------------------------------------|
@@ -23,7 +23,7 @@ The dataset comprises two main files: `RECIPES` and `RATINGS`, containing only t
 
 The recipes dataset contains 83,782 rows, indicating that there are 83,782 unique recipes. 
 
-## RATINGS
+## Interactions
 
 | Column      | Description            |
 |-------------|------------------------|
