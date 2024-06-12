@@ -59,6 +59,7 @@ My cleaned dataframe contains 83194 rows and 21 columns. I have omitted the "ste
 For the univariate analysis, I looked at the distribution of average recipe ratings. The plot below shows the distribution of average recipe ratings, and shows that most recipes have a high average rating, with a significant number of ratings clustering around the 4-5 range. This pattern may exist for many reasons: users may generally rate recipes positively, with fewer recipes receiving low ratings, or users are more motivated to leave positive reviews as compared to negative reviews. 
 
 
+
 <iframe
   src="assets/average_rating_distribution.html"
   width="800"
@@ -66,11 +67,10 @@ For the univariate analysis, I looked at the distribution of average recipe rati
   frameborder="0"
 ></iframe>
 
-
-
 ### Bivariate Analysis 
 
 The scatter plot below illustrates the relationship between preparation time (in minutes) and average rating for recipes. Darker colors indicate higher ratings, helping to visualize any potential correlation between the time invested in preparing a recipe and its perceived quality. From this plot, it seems that as the average rating decreases, the range of preparation times decreases as well. However, this is likely due to the fact that there are a significantly higher number of recipes with a 4 to 5 rating in the dataset, while there are less recipes present with ratings of 1, 2, and 3. I wanted to visualize this because I hypothesized that the longer a recipe took to make, the lower the average rating would be, as people may tend to have higher expectations for the outcome when a recipe requires more effort and time to prepare. 
+
 
 
 <iframe
@@ -79,7 +79,6 @@ The scatter plot below illustrates the relationship between preparation time (in
   height="600"
   frameborder="0"
 ></iframe>
-
 
 ### Interesting Aggregates 
 
@@ -95,10 +94,65 @@ This pivot table displays the average rating of recipes categorized by their cal
 ## Assessment of Missingness 
 
 ### NMAR Analysis 
+In the merged dataset, there were two columns with a significant amount of missing values: "description" and "average_rating". I believe that the "description" column is NMAR (Not Missing At Random) because the likelihood of a description being missing is probably related to the recipe's attributes or the user's feelings about the recipe. For example, users might be less inclined to write a description for simpler or less noteworthy recipes, or recipes they personally did not enjoy. This means the missingness is related to the unobserved value itself, making it NMAR. 
 
 ### Missingness Dependency 
 
+I conducted permutation tests to determine if the missingness in the 'average_rating' column is dependent on other columns such as 'minutes', 'n_steps', 'calories', 'protein_PDV', and 'n_ingredients'. The null hypothesis (H0) for each test is that the missingness of the 'average_rating' column does not depend on the values of the 'minutes', 'n_steps', 'calories', 'protein_PDV', or 'n_ingredients' columns. The alternative hypothesis (H1) is that the missingness of the 'average_ratings' column does depend on the values of the 'minutes', 'n_steps', 'calories', 'protein_PDV', or 'n_ingredients' columns.
+
+Results:
+Minutes: p-value = 0.533
+Number of Steps: p-value = 0.522
+Calories: p-value = 0.035
+Protein (PDV): p-value = 0.627
+Number of Ingredients: p-value = 0.565
+
+Based on these results, we fail to reject the null hypothesis for all columns except calories, which suggests that the missingness in average_rating may be dependent on calories.
+
+Below are the empirical distributions of the permuted test statistics for minutes and calories along with the observed statistics:
+
+
+<iframe
+  src="assets/perm_test_minutes.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
+
+<iframe
+  src="assets/perm_test_calories.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
+
+The empirical distribution of permuted test statistics for minutes shows that the observed test statistic (red line) falls well within the range of the permuted statistics, indicating no significant dependency between minutes and average_rating missingness. However, for calories, the observed test statistic falls towards the tail of the distribution, suggesting a potential dependency between calories and average_rating missingness.
+
 ## Hypothesis Testing 
+Since I aim to explore the kinds of recipes that tend to have higher ratings, I wanted to see whether certain tags have lower average ratings. Specifically, I wanted to see if recipes with the "desserts" tag had a lower average rating than recipes without the "desserts" tag, as desserts tend to be less healthy and higher in sugar content, so it is possible that people would rate these recipes lower. 
+
+Null Hypothesis (H0): Recipes without the tag "desserts" have the same or lower average ratings compared to those with the tag.
+Alternative Hypothesis (H1): Recipes without the tag "desserts" have higher average ratings compared to those with the tag.
+Test Statistic: The difference in mean ratings between recipes without the "desserts" tag and those with it.
+We choose the standard significance level of 0.05.
+P-value: I calculated this as the proportion of permuted differences that are greater than or equal to the observed difference (one-sided test).
+
+Results:
+Observed Difference: 0.051
+p-value: 0.0
+The p-value of 0.0 indicates that the observed difference in average ratings is highly unlikely to have occurred by random chance alone.
+
+
+<iframe
+  src="assets/perm_test_desserts.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
+
+Conclusion:
+Given the p-value of 0.0, we reject the null hypothesis at the 0.05 significance level. This suggests that there is a statistically significant difference in average ratings between recipes with the "desserts" tag and those without. Specifically, recipes tagged as "desserts" tend to have lower average ratings.
+
 
 ## Framing a Prediction Problem 
 
