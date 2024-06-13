@@ -154,7 +154,7 @@ The variable I am predicting is `average_rating`. I chose this because understan
 
 ## Baseline Model 
 
-My baseline model is designed to predict the `average_rating` of recipes based on the following features:
+My baseline model was designed to predict the `average_rating` of recipes based on the following features:
 
 1. **Quantitative Features:**
    - `minutes`: The time it takes to prepare the recipe (continuous numeric variable).
@@ -164,13 +164,13 @@ My baseline model is designed to predict the `average_rating` of recipes based o
 ### Preprocessing Steps
 
 1. **Handling Missing Values:**
-   - The dataset is first cleaned to drop any rows where `minutes`, `n_ingredients`, or `average_rating` have missing values.
+   - The dataset was first cleaned to drop any rows where `minutes`, `n_ingredients`, or `average_rating` have missing values.
    
 2. **Scaling:**
-   - A `StandardScaler` is used to standardize the features by removing the mean and scaling to unit variance. This ensures that all features contribute equally to the model's predictions.
+   - I used `StandardScaler`  to standardize the features by removing the mean and scaling to unit variance. This ensured that all features contributed equally to the model's predictions.
 
 3. **Model Pipeline:**
-   - The pipeline consists of a scaler (`StandardScaler`) and a regressor (`LinearRegression`). The pipeline first scales the input features and then applies the linear regression model.
+   - The pipeline consisted of a scaler (`StandardScaler`) and a regressor (`LinearRegression`). The pipeline first scaled the input features and then applied the linear regression model.
 
 ### Model Performance
 
@@ -194,7 +194,50 @@ Given the high MSE and low R² score, I believe the current model is not perform
 
 To improve the model, it might be beneficial to explore a multiclass classification problem. Additionally, incorporating more features and performing feature engineering to create more informative variables could also enhance model performance.
 
-
 ## Final Model
+After seeing the performance of the baseline model, I decided to experiment with a multiclass classification model, where the response variables were discrete values from 1 to 5. However, the accuracy of this model was 0.357, and the precision and recall for classes 1, 2, and 3 were extremely low. While precision and recall were higher for classes 4 and 5, they were still not strong enough to justify using this approach. Thus, I decided to continue to improve upon my initial model.
+
+In developing my final model, I introduced several new features that I believed would significantly enhance the model's predictive performance. These features include the number of steps in a recipe ('n_steps'), the percentage of daily value for sugar, protein, and carbohydrates ('sugar_PDV', 'protein_PDV', 'carbohydrates_PDV'), tags that provide categorical context about the recipe, and a specific boolean feature indicating whether a recipe is a dessert ('has_desserts_tag'). The number of steps in a recipe can indicate its complexity, potentially affecting user ratings. Nutritional content is crucial as health-conscious users may prefer healthier recipes, which can impact their ratings. Tags offer valuable context such as cuisine type, meal type, or dietary restrictions, all of which significantly influence user preferences and ratings. The 'has_desserts_tag' feature was included to account for potential differences in rating patterns for desserts compared to other types of recipes, as in my previous hypothesis testing, it was found that recipes with the 'desserts' tag were rated lower on average than those without the 'desserts' tag.
+
+To preprocess the data, I used a ColumnTransformer with several specific steps to engineer features:
+
+Numeric Features: For the numeric features ('n_ingredients', 'n_steps', 'sugar_PDV', 'protein_PDV', 'carbohydrates_PDV'), I used a pipeline that included SimpleImputer to fill missing values with the mean and StandardScaler to standardize the values.
+Calorie Feature: For the 'calories' feature, I used a pipeline that included SimpleImputer to fill missing values with the mean and QuantileTransformer to normalize the distribution to a normal distribution.
+Minutes Feature: For the 'minutes' feature, I used a pipeline that included SimpleImputer to fill missing values with the mean, PolynomialFeatures to add polynomial terms of degree 2, and StandardScaler to standardize the values.
+Categorical Features: For the categorical features ('tags' and 'has_desserts_tag'), I used OneHotEncoder to convert the categorical values into a format suitable for machine learning algorithms.
+
+For the final model, I selected a Random Forest Regressor. Random Forest is a method that combines multiple decision trees to enhance predictive performance and control overfitting, making it well-suited to handle the complexity and non-linearity present in the data. To optimize the model, I employed GridSearchCV to perform hyperparameter tuning. The parameters tuned were the number of trees in the forest ('n_estimators'), the maximum depth of the trees ('max_depth'), and the minimum number of samples required to be at a leaf node ('min_samples_leaf'). The optimal parameters found were a maximum depth of 10, a minimum samples leaf of 2, and 100 trees in the forest.
+
+The performance improvement from the baseline model to the final model is evident in the evaluation metrics. The baseline model, a simple linear regression, had a Mean Squared Error (MSE) of 0.41285401080918344 and an R² Score of 0.000713033521345996. In contrast, the final model achieved a slightly lower MSE of 0.4104921861725467 and a higher R² Score of 0.006429680361892731, indicating that it explains more variance in the data. Despite the modest improvement, the enhanced model benefits from a better understanding of the underlying patterns, although predicting average ratings accurately remains challenging due to the subjective nature and variability in user preferences.
 
 ## Fairness Analysis 
+
+For this analysis, I chose to investigate whether my final model performs differently for recipes with lower average ratings compared to those with higher average ratings. Specifically, I defined Group X as recipes with lower average ratings (1, 2, 3) and Group Y as recipes with higher average ratings (4, 5), as I knew that there were a greater number of ratings of 4 and 5 than ratings of 1, 2, or 3. The evaluation metric used for this analysis is the Root Mean Squared Error (RMSE), which measures the differences between predicted and actual values.
+
+**Null Hypothesis (H0):** There is no difference in the RMSE of predictions for recipes with lower average ratings (Group X) and recipes with higher average ratings (Group Y). Any observed difference is due to random chance.
+
+**Alternative Hypothesis (H1):** There is a significant difference in the RMSE of predictions for recipes with lower average ratings (Group X) compared to recipes with higher average ratings (Group Y).
+
+**Test Statistic:** The difference in RMSE between Group X and Group Y.
+
+**Significance Level:** The significance level is set to 0.05.
+
+**Results:**
+First, I calculated the RMSE for each group:
+
+RMSE for lower average ratings (1, 2, 3): 2.058
+RMSE for higher average ratings (4, 5): 0.398
+To determine if this observed difference in RMSE is statistically significant, I performed a permutation test. The observed difference in RMSE between the two groups was calculated as 1.661.
+
+**P-value:** The resulting p-value was 0.0, indicating that the observed difference in RMSE is highly unlikely to have occurred by random chance alone.
+
+**Conclusion:** Given the p-value of 0.0, we reject the null hypothesis at the 0.05 significance level. This suggests that there is a statistically significant difference in the RMSE of predictions between recipes with lower average ratings and those with higher average ratings. Specifically, the model performs worse (higher RMSE) for recipes with lower average ratings compared to those with higher average ratings.
+
+The visualization below illustrates how the observed difference stands out from the distribution of permuted differences, reinforcing the conclusion of a significant difference in model performance between the two groups.
+
+<iframe
+  src="assets/perm_test_fairness.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
