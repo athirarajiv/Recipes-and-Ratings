@@ -52,7 +52,7 @@ My cleaned dataframe contains 83,194 rows and 21 columns. I have omitted the "st
 | millionaire pound cake               | 286009 |       120 |           461724 | 2008-02-12 00:00:00 | time-to-make,course,cuisine,preparation,occasion,north-american,desserts,american,southern-united-states,dinner-party,holiday-event,cakes,dietary,christmas,thanksgiving,low-sodium,low-in-something,taste-mood,sweet,4-hours-or-less | [878.3, 63.0, 326.0, 13.0, 20.0, 123.0, 39.0] |         7 |               7 |                5 |      878.3 |              63 |         326 |           13 |            20 |                 123 |                  39 | True               |
 | 2000 meatloaf                        | 475785 |        90 |          2202916 | 2012-03-06 00:00:00 | time-to-make,course,main-ingredient,preparation,main-dish,potatoes,vegetables,4-hours-or-less,meatloaf,simply-potatoes2                                                                                                               | [267.0, 30.0, 12.0, 12.0, 29.0, 48.0, 2.0]    |        17 |              13 |                5 |      267   |              30 |          12 |           12 |            29 |                  48 |                   2 | False              |
 
-## Univariate Analysis
+### Univariate Analysis
 For the univariate analysis, I looked at the distribution of average recipe ratings. The plot below shows the distribution of average recipe ratings, and shows that most recipes have a high average rating, with a significant number of ratings clustering around the 4-5 range. This pattern may exist for many reasons: users may generally rate recipes positively, with fewer recipes receiving low ratings, or users are more motivated to leave positive reviews as compared to negative reviews.
 
 <iframe
@@ -62,7 +62,7 @@ For the univariate analysis, I looked at the distribution of average recipe rati
   frameborder="0"
 ></iframe>
 
-## Bivariate Analysis 
+### Bivariate Analysis 
 The scatter plot below illustrates the relationship between preparation time (in minutes) and average rating for recipes. Darker colors indicate higher ratings, helping to visualize any potential correlation between the time invested in preparing a recipe and its perceived quality. From this plot, it seems that as the average rating decreases, the range of preparation times decreases as well. However, this is likely due to the fact that there are a significantly higher number of recipes with a 4 to 5 rating in the dataset, while there are less recipes present with ratings of 1, 2, and 3. I wanted to visualize this because I hypothesized that the longer a recipe took to make, the lower the average rating would be, as people may tend to have higher expectations for the outcome when a recipe requires more effort and time to prepare.
 
 <iframe
@@ -72,7 +72,7 @@ The scatter plot below illustrates the relationship between preparation time (in
   frameborder="0"
 ></iframe>
 
-## Interesting Aggregates 
+### Interesting Aggregates 
 This pivot table displays the average rating of recipes categorized by their calorie content. I defined several calorie bins to categorize the recipes based on their calorie content. The categories range from 0-100 calories to 1000+ calories. I then created a pivot table that calculates the mean average_rating for each calorie category. The pivot table is sorted in descending order of the average rating. I wanted to create this pivot table because I hoped it would help to understand if and/or how the calorie content of recipes might influence their ratings. By looking at the average ratings across different calorie categories, we can infer if there is a trend or preference among users for recipes with certain calorie levels. However, the pivot table shows that the average rating fluctuates only slightly across all the calorie categories.
 
 <iframe
