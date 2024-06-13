@@ -60,9 +60,7 @@ For the univariate analysis, I looked at the distribution of average recipe rati
   width="800"
   height="600"
   frameborder="0"
-></iframe>
-
-### Bivariate Analysis 
+></iframe>### Bivariate Analysis 
 The scatter plot below illustrates the relationship between preparation time (in minutes) and average rating for recipes. Darker colors indicate higher ratings, helping to visualize any potential correlation between the time invested in preparing a recipe and its perceived quality. From this plot, it seems that as the average rating decreases, the range of preparation times decreases as well. However, this is likely due to the fact that there are a significantly higher number of recipes with a 4 to 5 rating in the dataset, while there are less recipes present with ratings of 1, 2, and 3. I wanted to visualize this because I hypothesized that the longer a recipe took to make, the lower the average rating would be, as people may tend to have higher expectations for the outcome when a recipe requires more effort and time to prepare.
 
 <iframe
@@ -70,9 +68,7 @@ The scatter plot below illustrates the relationship between preparation time (in
   width="800"
   height="600"
   frameborder="0"
-></iframe>
-
-### Interesting Aggregates 
+></iframe>### Interesting Aggregates 
 This pivot table displays the average rating of recipes categorized by their calorie content. I defined several calorie bins to categorize the recipes based on their calorie content. The categories range from 0-100 calories to 1000+ calories. I then created a pivot table that calculates the mean average_rating for each calorie category. The pivot table is sorted in descending order of the average rating. I wanted to create this pivot table because I hoped it would help to understand if and/or how the calorie content of recipes might influence their ratings. By looking at the average ratings across different calorie categories, we can infer if there is a trend or preference among users for recipes with certain calorie levels. However, the pivot table shows that the average rating fluctuates only slightly across all the calorie categories.
 
 <iframe
@@ -80,9 +76,7 @@ This pivot table displays the average rating of recipes categorized by their cal
   width="800"
   height="400"
   frameborder="0"
-></iframe>
-
-## Assessment of Missingness
+></iframe>## Assessment of Missingness
 
 ### **NMAR Analysis**
 In the merged dataset, there were two columns with a significant amount of missing values: "description" and "average_rating". I believe that the "description" column is NMAR (Not Missing At Random) because the likelihood of a description being missing is probably related to the recipe's attributes or the user's feelings about the recipe. For example, users might be less inclined to write a description for simpler or less noteworthy recipes, or recipes they personally did not enjoy. This means the missingness is related to the unobserved value itself, making it NMAR. 
@@ -113,9 +107,7 @@ Below are the empirical distributions of the permuted test statistics for minute
   width="800"
   height="600"
   frameborder="0"
-></iframe>
-
-The empirical distribution of permuted test statistics for minutes shows that the observed test statistic (red line) falls well within the range of the permuted statistics, indicating no significant dependency between minutes and average_rating missingness. However, for calories, the observed test statistic falls towards the tail of the distribution, suggesting a potential dependency between calories and average_rating missingness.
+></iframe>The empirical distribution of permuted test statistics for minutes shows that the observed test statistic (red line) falls well within the range of the permuted statistics, indicating no significant dependency between minutes and average_rating missingness. However, for calories, the observed test statistic falls towards the tail of the distribution, suggesting a potential dependency between calories and average_rating missingness.
 
 ## Hypothesis Testing 
 Since I aim to explore the kinds of recipes that tend to have higher ratings, I wanted to see whether certain tags have lower average ratings. Specifically, I wanted to see if recipes with the "desserts" tag had a lower average rating than recipes without the "desserts" tag, as desserts tend to be less healthy and higher in sugar content, so it is possible that people would rate these recipes lower. 
@@ -142,9 +134,7 @@ The p-value of 0.0 indicates that the observed difference in average ratings is 
   width="800"
   height="600"
   frameborder="0"
-></iframe>
-
-**Conclusion:**
+></iframe>**Conclusion:**
 Given the p-value of 0.0, we reject the null hypothesis at the 0.05 significance level. This suggests that there is a statistically significant difference in average ratings between recipes with the "desserts" tag and those without. Specifically, recipes tagged as "desserts" tend to have lower average ratings.
 
 
@@ -232,12 +222,3 @@ To determine if this observed difference in RMSE is statistically significant, I
 **P-value:** The resulting p-value was 0.0, indicating that the observed difference in RMSE is highly unlikely to have occurred by random chance alone.
 
 **Conclusion:** Given the p-value of 0.0, we reject the null hypothesis at the 0.05 significance level. This suggests that there is a statistically significant difference in the RMSE of predictions between recipes with lower average ratings and those with higher average ratings. Specifically, the model performs worse (higher RMSE) for recipes with lower average ratings compared to those with higher average ratings.
-
-The visualization below illustrates how the observed difference stands out from the distribution of permuted differences, reinforcing the conclusion of a significant difference in model performance between the two groups.
-
-<iframe
-  src="assets/perm_test_fairness.html"
-  width="800"
-  height="600"
-  frameborder="0"
-></iframe>
