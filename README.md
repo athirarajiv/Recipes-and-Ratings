@@ -140,7 +140,7 @@ Given the p-value of 0.0, we reject the null hypothesis at the 0.05 significance
 
 ## Framing a Prediction Problem 
 I plan to predict the average ratings of recipes. This is a regression problem because the average rating is a continuous numerical value that can take on any value between 1 and 5. 
-The variable I am predicting is `average_rating`. I chose this because understanding what factors influence the rating of a recipe can provide valuable insights into user preferences and help in recommending or creating highly-rated recipes.I will use Mean Squared Error (MSE) and R² Score to evaluate my model. I chose MSE because it is a common metric for regression tasks that penalizes larger errors more heavily, providing a clear measure of the model's prediction accuracy. The R² Score is chosen to explain the proportion of the variance in the dependent variable that is predictable from the independent variables, giving a sense of how well the features explain the variability in ratings. To ensure that my model only uses information available at the time of prediction, I will exclude any features that would not be known prior to the rating being given.
+The variable I am predicting is `average_rating`. I chose this because understanding what factors influence the rating of a recipe can provide valuable insights into user preferences and help in recommending or creating highly-rated recipes.I will use Mean Squared Error (MSE) and R² Score to evaluate my model. I chose MSE because it is a common metric for regression tasks that penalizes larger errors more heavily, providing a clear measure of the model's prediction accuracy. The R² Score is chosen to explain the proportion of the variance in the dependent variable that is predictable from the independent variables, giving a sense of how well the features explain the variability in ratings. 
 
 ## Baseline Model 
 
@@ -172,7 +172,7 @@ The Mean Squared Error (MSE) measures the average squared difference between the
 ### Evaluation of Model Performance
 
 - The **MSE** value of approximately 0.41 indicates that there is a significant average error in the predictions. Given that the ratings are typically on a scale of 1 to 5, an error of this magnitude suggests that the model's predictions are not very accurate.
-- The **R² Score** of approximately 0.0007 indicates that the model explains very little of the variance in the `average_rating` variable. This suggests that the linear regression model, as currently configured, is not capturing the underlying patterns in the data effectively.
+- The **R² Score** of approximately 0.0007 indicates that the model explains very little of the variance in the `average_rating` variable. This suggests that the linear regression model is not capturing the underlying patterns in the data effectively.
 
 ### Conclusion
 
@@ -185,7 +185,7 @@ Given the high MSE and low R² score, I believe the current model is not perform
 To improve the model, it might be beneficial to explore a multiclass classification problem. Additionally, incorporating more features and performing feature engineering to create more informative variables could also enhance model performance.
 
 ## Final Model
-After seeing the performance of the baseline model, I decided to experiment with a multiclass classification model, where the response variables were discrete values from 1 to 5. However, the accuracy of this model was 0.357, and the precision and recall for classes 1, 2, and 3 were extremely low. While precision and recall were higher for classes 4 and 5, they were still not strong enough to justify using this approach. Thus, I decided to continue to improve upon my initial model.
+After seeing the performance of the baseline model, I decided to experiment with a multiclass classification model, where the response variables were discrete values from 1 to 5. However, the accuracy of this model was 0.357, and the precision and recall for classes 1, 2, and 3 were extremely low. While precision and recall were higher for classes 4 and 5, they were still not strong enough to justify using this approach. Thus, I decided to continue to improve upon my initial regression model.
 
 In developing my final model, I introduced several new features that I believed would significantly enhance the model's predictive performance. These features include the number of steps in a recipe ('n_steps'), the percentage of daily value for sugar, protein, and carbohydrates ('sugar_PDV', 'protein_PDV', 'carbohydrates_PDV'), tags that provide categorical context about the recipe, and a specific boolean feature indicating whether a recipe is a dessert ('has_desserts_tag'). The number of steps in a recipe can indicate its complexity, potentially affecting user ratings. Nutritional content is crucial as health-conscious users may prefer healthier recipes, which can impact their ratings. Tags offer valuable context such as cuisine type, meal type, or dietary restrictions, all of which significantly influence user preferences and ratings. The 'has_desserts_tag' feature was included to account for potential differences in rating patterns for desserts compared to other types of recipes, as in my previous hypothesis testing, it was found that recipes with the 'desserts' tag were rated lower on average than those without the 'desserts' tag.
 
